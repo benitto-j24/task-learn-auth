@@ -56,7 +56,7 @@ const Login = () => {
       }
     }
   };
-  
+
   //onblur fn
 
   //onSubmit fn
@@ -66,47 +66,38 @@ const Login = () => {
     try {
       await validate(formData);
       setSubmitting(true);
-       await signInWithEmailAndPassword(
-         auth,
-         formData.email as string,
-         formData.password as string
-       );
-       const user = auth.currentUser;
-       toast.success("login success");
-       router.push("/dashboard");
-       setErrors2({});
-       setFormData({
-         email: "",
-         password: "",
-       });
-       
-
+      await signInWithEmailAndPassword(
+        auth,
+        formData.email as string,
+        formData.password as string
+      );
+      const user = auth.currentUser;
+      router.push("/dashboard");
+      toast.success("login success");
+      setErrors2({});
+      setFormData({
+        email: "",
+        password: "",
+      });
     } catch (error) {
       if (error instanceof Error) {
-        const errorCode = (error as any).code
+        const errorCode = (error as any).code;
         console.log(errorCode);
-         const errorMessage = getErrorMessage2(errorCode);
-         setErrors2({
-           error: errorMessage,
-         });
+        const errorMessage = getErrorMessage2(errorCode);
+        setErrors2({
+          error: errorMessage,
+        });
       }
     }
   };
 
   console.log(errors2);
 
-
-  useEffect(()=>{
-    if(errors2.error){
-      
-    toast.error(errors2.error);
-
+  useEffect(() => {
+    if (errors2.error) {
+      toast.error(errors2.error);
     }
-
-
-  },[errors2])
-  
-  
+  }, [errors2]);
 
   return (
     <div className=" mt-[5rem] min-w-[620px] h-[540px] bg-white shadow-md rounded-3xl z-10">

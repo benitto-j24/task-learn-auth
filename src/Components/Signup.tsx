@@ -58,27 +58,27 @@ const eyeOpen=()=>{
   setOpen(!open)
 }
 
-const saveUserEmail=async(email:string | null):Promise<void>=>{
-  if (email === null) {
-    console.error("User email is empty");
-    return;
-  }
-  try {
-    const userId = auth.currentUser?.uid;
+// const saveUserEmail=async(email:string | null):Promise<void>=>{
+//   if (email === null) {
+//     console.error("User email is empty");
+//     return;
+//   }
+//   try {
+//     const userId = auth.currentUser?.uid;
 
-    if (userId) {
-      await addDoc(collection(db,"users"),{
-        email:email,
-        uid:userId,
-      })
-    } else {
-      console.error('No authenticated user found');
-    }
-  }
-  catch(error:any){
-    toast.error(`Error saving email:${error}`);
-  }
-}
+//     if (userId) {
+//       await addDoc(collection(db,"users"),{
+//         email:email,
+//         uid:userId,
+//       })
+//     } else {
+//       console.error('No authenticated user found');
+//     }
+//   }
+//   catch(error:any){
+//     toast.error(`Error saving email:${error}`);
+//   }
+// }
 
   //onblur fn
 
@@ -96,12 +96,14 @@ const saveUserEmail=async(email:string | null):Promise<void>=>{
           formData.password as string
         );
         const user = auth.currentUser;
-        if(user){
+        toast.success("Register successfully");
 
-          await saveUserEmail(user.email);
-          toast.success("Register successfully");
+        // if(user){
 
-        }
+        //   await saveUserEmail(user.email);
+        //   toast.success("Register successfully");
+
+        // }
         
         setErrors2({});
         setFormData({

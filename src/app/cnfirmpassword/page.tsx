@@ -14,6 +14,7 @@ import { BsEyeSlash } from "react-icons/bs";
 
 const page = () => {
   const [open, setOpen] = useState(false);
+  const[submit,setSubmit]=useState(false)
     const [open2, setOpen2] = useState(false);
   const [inputs, setInputs] = useState({
     password: "",
@@ -43,7 +44,6 @@ const page = () => {
     }
   }, []);
 
-  console.log(oobCode);
 
   //onchange fn
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,23 +71,29 @@ const page = () => {
     }
   };
 
+  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
     validate(inputs);
+    setSubmit(true)
     if (!oobCode) {
       toast.error("Invalid password reset link.");
       return;
     }
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(errors).length === 0 ) {
       try {
         await confirmPasswordReset(auth, oobCode, inputs.password);
         toast.success("Password reset successfully.");
         router.push("/");
-      } catch (error) {}
+      } catch (error:any) {
+        toast.error(error.message)
+      
+      }
     }
   };
 
-  //error state
 
   return (
     <div className="w-full h-[100vh] flex justify-center mt-[3rem]">
@@ -161,6 +167,7 @@ const page = () => {
                   name="cnpassword"
                   placeholder="re-enter new password"
                   onChange={handleChange}
+                  onBlur={()=>validate(inputs)}
                 />
                 {open2 ? (
                   <BsEye

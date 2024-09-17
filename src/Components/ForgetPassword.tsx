@@ -28,7 +28,7 @@ const ForgetPassword = () => {
     try {
       const exists = await fetchSignInMethodsForEmail(auth, input.email);
 
-      if (exists.length > 0) {
+      if (exists.length) {
         await sendPasswordResetEmail(auth, input.email);
         toast.success("Email send successfully");
         setInput({
@@ -55,6 +55,8 @@ const ForgetPassword = () => {
     }
   };
 
+  console.log(errors);
+  
 
   return (
     <div className="w-[800px] h-[350px] flex justify-center">
