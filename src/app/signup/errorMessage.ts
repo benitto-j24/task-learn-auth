@@ -17,7 +17,7 @@ const errorMessages: Record<AuthErrorCode, string> = {
 
 };
 
-export const getErrorMessage = (errorCode: any):any => {
+export const getErrorMessage = (errorCode: string):string => {
   return (
     errorMessages[errorCode as AuthErrorCode] 
   );

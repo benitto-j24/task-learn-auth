@@ -45,7 +45,7 @@ const Login = () => {
       setErrors({});
       await loginSchema.validate(formData, { abortEarly: false });
     } catch (err) {
-      let newErrors: any = {};
+      const newErrors: any = {};
       if (err instanceof Yup.ValidationError) {
         err.inner.forEach((error) => {
           if (error.path) {
@@ -71,7 +71,6 @@ const Login = () => {
         formData.email as string,
         formData.password as string
       );
-      const user = auth.currentUser;
       router.push("/dashboard");
       toast.success("login success");
       setErrors2({});

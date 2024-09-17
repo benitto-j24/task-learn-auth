@@ -13,29 +13,8 @@ import { BsEye } from "react-icons/bs";
 import { BsEyeSlash } from "react-icons/bs";
 
 const page = () => {
-  const [open, setOpen] = useState(false);
-  const[submit,setSubmit]=useState(false)
-    const [open2, setOpen2] = useState(false);
-  const [inputs, setInputs] = useState({
-    password: "",
-    cnpassword: "",
-  });
-
-  const router = useRouter();
-
-  const [infoOpen, setInfoOpen] = useState(false);
-
   const [oobCode, setOobCode] = useState<string | null>(null);
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const eyeOpen = () => {
-    setOpen(!open);
-  };
-
-   const eyeOpen2 = () => {
-     setOpen2(!open2);
-   };
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const code = query.get("oobCode");
@@ -44,6 +23,24 @@ const page = () => {
     }
   }, []);
 
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [inputs, setInputs] = useState({
+    password: "",
+    cnpassword: "",
+  });
+  const [infoOpen, setInfoOpen] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const router = useRouter();
+
+  const eyeOpen = () => {
+    setOpen(!open);
+  };
+
+  const eyeOpen2 = () => {
+    setOpen2(!open2);
+  };
 
   //onchange fn
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,29 +68,24 @@ const page = () => {
     }
   };
 
-  
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
     validate(inputs);
-    setSubmit(true)
     if (!oobCode) {
       toast.error("Invalid password reset link.");
       return;
     }
-    if (Object.keys(errors).length === 0 ) {
+    if (Object.keys(errors).length === 0) {
       try {
         await confirmPasswordReset(auth, oobCode, inputs.password);
         toast.success("Password reset successfully.");
         router.push("/");
-      } catch (error:any) {
-        toast.error(error.message)
-      
+      } catch (error: any) {
+        toast.error(error.message);
       }
     }
   };
-
 
   return (
     <div className="w-full h-[100vh] flex justify-center mt-[3rem]">
@@ -140,7 +132,7 @@ const page = () => {
               {infoOpen && (
                 <div className="w-[270px] h-[120px] bg-gray-200 absolute z-20 right-[-17rem] top-[0rem] rounded-xl p-2 flex flex-col gap-y-3">
                   {rules.map((rule, index) => {
-                    let cn =
+                    const cn =
                       inputs.password && inputs.password.match(rule.pattern)
                         ? "text-primary font-medium"
                         : "text-gray-500";
@@ -167,7 +159,7 @@ const page = () => {
                   name="cnpassword"
                   placeholder="re-enter new password"
                   onChange={handleChange}
-                  onBlur={()=>validate(inputs)}
+                  onBlur={() => validate(inputs)}
                 />
                 {open2 ? (
                   <BsEye

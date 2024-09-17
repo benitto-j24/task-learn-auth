@@ -10,8 +10,7 @@ import { rules } from "@/app/signup/signupValidation";
 import { getErrorMessage } from "@/app/signup/errorMessage";
 import { BsEye } from "react-icons/bs";
 import { BsEyeSlash } from "react-icons/bs";
-import { db } from "../app/firebase/config";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+
 
 const Signup = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
