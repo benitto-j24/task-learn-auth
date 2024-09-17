@@ -7,8 +7,7 @@ export type AuthErrorCode =
   | "auth/invalid-credential";
 
 const errorMessages: Record<AuthErrorCode, string> = {
-  "auth/invalid-email":
-    "This is not not valid email address.",
+  "auth/invalid-email": "This is not valid email address.",
   "auth/user-not-found":
     "No user found with this email address. Please check and try again.",
   "auth/wrong-password": "The password is incorrect. Please try again.",
