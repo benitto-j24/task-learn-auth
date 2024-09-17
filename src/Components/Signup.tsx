@@ -10,6 +10,8 @@ import { rules } from "@/app/signup/signupValidation";
 import { getErrorMessage } from "@/app/signup/errorMessage";
 import { BsEye } from "react-icons/bs";
 import { BsEyeSlash } from "react-icons/bs";
+import { db } from "../app/firebase/config";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 
 const Signup = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -56,6 +58,28 @@ const eyeOpen=()=>{
   setOpen(!open)
 }
 
+const saveUserEmail=async(email:string | null):Promise<void>=>{
+  if (email === null) {
+    console.error("User email is empty");
+    return;
+  }
+  try {
+    const userId = auth.currentUser?.uid;
+
+    if (userId) {
+      await addDoc(collection(db,"users"),{
+        email:email,
+        uid:userId,
+      })
+    } else {
+      console.error('No authenticated user found');
+    }
+  }
+  catch(error:any){
+    toast.error(`Error saving email:${error}`);
+  }
+}
+
   //onblur fn
 
   //onSubmit fn
@@ -72,7 +96,13 @@ const eyeOpen=()=>{
           formData.password as string
         );
         const user = auth.currentUser;
-        toast.success("Register success");
+        if(user){
+
+          await saveUserEmail(user.email);
+          toast.success("Register successfully");
+
+        }
+        
         setErrors2({});
         setFormData({
           email: "",
