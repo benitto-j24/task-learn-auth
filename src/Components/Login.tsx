@@ -99,7 +99,7 @@ const Login = () => {
   }, [errors2]);
 
   return (
-    <div className=" mt-[5rem] min-w-[620px] h-[540px] bg-white shadow-md rounded-3xl z-10">
+    <div className=" mt-[5rem] min-w-[850px] h-[500px] bg-white shadow-md rounded-3xl z-10">
       <div className="mt-[1.7rem]">
         <h1 className=" text-[2.5rem] text-center text-primary font-medium">
           T-askLearn
@@ -125,6 +125,7 @@ const Login = () => {
             id="email"
             ref={inputRef}
             value={formData.email}
+            required
             onChange={handleChange}
           />
         </div>
@@ -140,6 +141,7 @@ const Login = () => {
             type="password"
             name="password"
             id="password"
+            required
             value={formData.password}
             onChange={handleChange}
           />
