@@ -85,6 +85,7 @@ const ForgetPassword = () => {
             placeholder="Email"
             onChange={handleChange}
             value={input.email}
+            required
           />
           <button className=" bg-blue-500 p-[7px] font-medium rounded-md text-white hover:shadow-[inset_0_0_0_200px_rgba(0,0,0,0.5)]">
             Send Reset Link

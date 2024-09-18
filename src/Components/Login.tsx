@@ -141,7 +141,6 @@ const Login = () => {
             type="password"
             name="password"
             id="password"
-            required
             value={formData.password}
             onChange={handleChange}
           />
