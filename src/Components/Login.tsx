@@ -90,7 +90,6 @@ const Login = () => {
     }
   };
 
-  console.log(errors2);
 
   useEffect(() => {
     if (errors2.error) {
